@@ -1,10 +1,10 @@
 import React from 'react';
 import './SearchBar.css';
 
-
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       term: '',
       location: '',
@@ -16,34 +16,45 @@ class SearchBar extends React.Component {
       "Highest Rated": "rating",
       "Most Reviewed": "review_count"
     };
-    this.handleSortByChange = handleSortByChange.bind(this)
-    this.handleTermChange = handleTermChange.bind(this)
-    this.handleLocationChange = handleLocationChange.bind(this)
+
+    this.handleSortByChange = this.handleSortByChange.bind(this);
+    this.handleTermChange = this.handleTermChange.bind(this);
+    this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   getSortByClass(sortByOption) {
     if(this.state.sortBy === sortByOption) {
       return 'active';
+    } else {
+      return '';
     }
-    return '';
   }
 
   handleSortByChange(sortByOption) {
     this.setState({
       sortBy: sortByOption
-    })
+    });
   }
 
   handleTermChange(event) {
     this.setState({
       term: event.target.value
-    })
+    });
   }
 
   handleLocationChange(event) {
     this.setState({
       location: event.target.value
-    })
+    });
+  }
+
+  handleSearch(event) {
+    this.props.searchYelp(
+      this.state.term,
+      this.state.location,
+      this.state.sortBy)
+    event.preventDefault();
   }
 
   renderSortByOptions() {
@@ -51,13 +62,14 @@ class SearchBar extends React.Component {
       let sortByOptionValue = this.sortByOptions[sortByOption];
       return (
         <li className={this.getSortByClass(sortByOptionValue)}
-            onClick={handleSortByChange.bind(this, sortByOptionValue)}
+            onClick={this.handleSortByChange}
             key={sortByOptionValue}>
             {sortByOption}
         </li>
       );
     });
   }
+
   render() {
     return(
       <div className="SearchBar">
@@ -75,11 +87,11 @@ class SearchBar extends React.Component {
         />
       </div>
       <div className="SearchBar-submit">
-        <a>Let's Go</a>
+        <a onClick={this.handleSearch}>Let's Go</a>
       </div>
     </div>
-    )
+    );
   }
 }
 
-export default SearchBar
+export default SearchBar;
