@@ -17,9 +17,9 @@ class SearchBar extends React.Component {
       "Most Reviewed": "review_count"
     };
 
-    this.handleSortByChange = handleSortByChange.bind(this);
-    this.handleTermChange = handleTermChange.bind(this);
-    this.handleLocationChange = handleLocationChange.bind(this);
+    this.handleSortByChange = this.handleSortByChange.bind(this);
+    this.handleTermChange = this.handleTermChange.bind(this);
+    this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
 
@@ -33,23 +33,23 @@ class SearchBar extends React.Component {
   handleSortByChange(sortByOption) {
     this.setState({
       sortBy: sortByOption
-    })
+    });
   }
 
   handleTermChange(event) {
     this.setState({
       term: event.target.value
-    })
+    });
   }
 
   handleLocationChange(event) {
     this.setState({
       location: event.target.value
-    })
+    });
   }
 
   handleSearch(event) {
-    this.props.searchYelp(term,location,sortBy);
+    this.props.searchYelp(this.props.term,this.props.location,this.props.sortBy);
     event.preventDefault();
   }
 
@@ -58,7 +58,7 @@ class SearchBar extends React.Component {
       let sortByOptionValue = this.sortByOptions[sortByOption];
       return (
         <li className={this.getSortByClass(sortByOptionValue)}
-            onClick={handleSortByChange.bind(this, sortByOptionValue)}
+            onClick={this.handleSortByChange.bind(this, sortByOptionValue)}
             key={sortByOptionValue}>
             {sortByOption}
         </li>
