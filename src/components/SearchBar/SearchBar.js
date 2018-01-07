@@ -1,10 +1,10 @@
 import React from 'react';
 import './SearchBar.css';
 
-
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       term: '',
       location: '',
@@ -26,8 +26,9 @@ class SearchBar extends React.Component {
   getSortByClass(sortByOption) {
     if(this.state.sortBy === sortByOption) {
       return 'active';
+    } else {
+      return '';
     }
-    return '';
   }
 
   handleSortByChange(sortByOption) {
@@ -65,6 +66,7 @@ class SearchBar extends React.Component {
       );
     });
   }
+
   render() {
     return(
       <div className="SearchBar">
@@ -85,7 +87,7 @@ class SearchBar extends React.Component {
         <a onClick={this.handleSearch}>Let's Go</a>
       </div>
     </div>
-    )
+    );
   }
 }
 
